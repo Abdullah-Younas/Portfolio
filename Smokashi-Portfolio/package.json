@@ -12,6 +12,8 @@
     "vite": "^6.2.0"
   },
   "dependencies": {
-    "three": "^0.175.0"
+    "three": "^0.175.0",
+    "three-fbx-loader": "^1.0.3",
+    "three-gltf-loader": "^1.111.0"
   }
 }
