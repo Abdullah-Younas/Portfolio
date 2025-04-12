@@ -3,6 +3,30 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import getStarfield from './getStarfield.js';
 
+function createTextTexture(text) {
+  const canvas = document.createElement('canvas');
+  canvas.width = 512;
+  canvas.height = 1024;
+
+  const ctx = canvas.getContext('2d');
+
+  // Background (optional)
+  ctx.fillStyle = 'rgba(255, 255, 255, 0)'; // transparent
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // Text styling
+  ctx.fillStyle = 'black';
+  ctx.font = 'bold 80px Arial';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(text, canvas.width / 2, canvas.height / 2);
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.minFilter = THREE.LinearFilter;
+  return texture;
+}
+
+
 let astronautModel; // to hold the loaded model
 const randomAxis = new THREE.Vector3(
   Math.random(),
@@ -10,6 +34,14 @@ const randomAxis = new THREE.Vector3(
   Math.random()
 ).normalize(); // random direction for rotation
 
+
+const cardWidth = 1;
+const cardHeight = 1.5;
+const totalCards = 10;
+const radius = 2;
+
+const geometry = new THREE.PlaneGeometry(cardWidth, cardHeight);
+const material = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide, transparent: true, opacity: 0.1 });
 
 const w = window.innerWidth;
 const h = window.innerHeight;
@@ -31,17 +63,10 @@ controls.enableDamping = true;
 controls.dampingFactor = 0.05;
 controls.enablePan = false;
 controls.minDistance = 3;
-controls.maxDistance = 7;
+controls.maxDistance = 6
 controls.autoRotate = true;
-controls.autoRotateSpeed = 0.1;
+controls.autoRotateSpeed = .1;
 
-const geo = new THREE.IcosahedronGeometry(1.0, 2);
-const mat = new THREE.MeshStandardMaterial({
-  color:0xccff,
-  flatShading: true
-});
-const mesh = new THREE.Mesh(geo, mat);
-//scene.add(mesh);
 
 const stars = getStarfield();
 scene.add(stars);
@@ -61,14 +86,32 @@ gltfLoader.load('Asstro.glb', (gltf) => {
   console.error('Error loading glTF model', error);
 });
 
+const loader = new THREE.TextureLoader();
+
+for (let i = 0; i < totalCards; i++) {
+  const texture = loader.load(`./H.png`); // Or JPG, WebP, etc.
+
+  const material = new THREE.MeshBasicMaterial({
+    map: texture,
+    transparent: true, // required if your image has transparency
+    side: THREE.DoubleSide
+  });
+
+  const card = new THREE.Mesh(geometry, material);
+
+  const angle = (i / totalCards) * Math.PI * 2;
+  const x = Math.cos(angle) * radius;
+  const z = Math.sin(angle) * radius;
+
+  card.position.set(x, 0, z);
+  card.lookAt(0, 0, 0);       // Face toward center
+  card.rotateY(Math.PI);  
+  
+  scene.add(card);
+}
+
 function animate(){
   requestAnimationFrame(animate);
-
-  // Rotate the astronaut if it's loaded
-  if (astronautModel) {
-    astronautModel.rotateOnAxis(new THREE.Vector3(0,-1,0), 0.0005); // adjust speed as needed
-  }
-  //controls.rotateOnAxis(new THREE.Vector3(0,1,0), 0.05);
 
   controls.update();
   renderer.render(scene, camera);
