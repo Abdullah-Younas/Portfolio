@@ -1,8 +1,8 @@
 import * as THREE from "three";
 import starImg from './circle.png';
-export default function getStarfield({ numStars = 1000 } = {}) {
+export default function getStarfield({ numStars = 10000 } = {}) {
   function randomSpherePoint() {
-    const radius = Math.random() * 25 + 25;
+    const radius = Math.random() * 27 + 27;
     const u = Math.random();
     const v = Math.random();
     const theta = 2 * Math.PI * u;
@@ -13,7 +13,7 @@ export default function getStarfield({ numStars = 1000 } = {}) {
 
     return {
       pos: new THREE.Vector3(x, y, z),
-      hue: 0.6,
+      hue: 0.2,
       minDist: radius,
     };
   }
