@@ -89,7 +89,7 @@ gltfLoader.load('Asstro.glb', (gltf) => {
 const loader = new THREE.TextureLoader();
 
 for (let i = 0; i < totalCards; i++) {
-  const texture = loader.load(`./H.png`); // Or JPG, WebP, etc.
+  const texture = loader.load(`./H${i+1}.png`); // Or JPG, WebP, etc.
 
   const material = new THREE.MeshBasicMaterial({
     map: texture,
@@ -105,8 +105,7 @@ for (let i = 0; i < totalCards; i++) {
 
   card.position.set(x, 0, z);
   card.lookAt(0, 0, 0);       // Face toward center
-  card.rotateY(Math.PI);  
-  
+  card.rotateY(Math.PI); 
   scene.add(card);
 }
 
@@ -117,3 +116,27 @@ function animate(){
   renderer.render(scene, camera);
 }
 animate();
+
+document.addEventListener("keydown", function(event) {
+  if(event.key === "1"){
+    window.open("https://smochat.pages.dev/", "_blank");
+  } else if(event.key === "2"){
+    window.open("https://sencdec.pages.dev/", "_blank");
+  } else if(event.key === "3"){
+    window.open("https://boardify-n2t.pages.dev/", "_blank");
+  } else if(event.key === "4"){
+    window.open("https://smokashi.itch.io/haze", "_blank");
+  } else if(event.key === "5"){
+    window.open("https://keyboard-cowboys.pages.dev/", "_blank");
+  } else if(event.key === "6"){
+    window.open("https://smokashi.itch.io/wooshy", "_blank");
+  } else if(event.key === "7"){
+    window.open("https://smochat.pages.dev/", "_blank");
+  } else if(event.key === "8"){
+    window.open("https://smochat.pages.dev/", "_blank");
+  } else if(event.key === "9"){
+    window.open("https://github.com/Abdullah-Younas?tab=repositories", "_blank");
+  } else if(event.key === "0"){
+    window.open("https://smokashi.itch.io/", "_blank");
+  }
+})
