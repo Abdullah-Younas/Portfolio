@@ -19,7 +19,7 @@ const randomAxis = new THREE.Vector3(
 
 const cardWidth = 1;
 const cardHeight = 1.5;
-const totalCards = 10;
+const totalCards = 9;
 const radius = 2;
 
 const geometry = new THREE.PlaneGeometry(cardWidth, cardHeight);
@@ -118,4 +118,39 @@ window.addEventListener('resize', () => {
   // Update camera aspect ratio and projection matrix
   camera.aspect = w / h;
   camera.updateProjectionMatrix();
+});
+
+window.addEventListener('keydown', (event) => {
+  switch (event.key) {
+    case '1':
+      window.open("https://smochat.pages.dev/", "_blank");
+      break;
+    case '2':
+      window.open("https://sencdec.pages.dev/", "_blank");
+      break;
+    case '3':
+      window.open("https://boardify-n2t.pages.dev/", "_blank");
+      break;
+    case '4':
+      window.open("https://smokashi.itch.io/haze", "_blank");
+      break;
+    case '5':
+      window.open("https://keyboard-cowboys.pages.dev/success-home", "_blank");
+      break;
+    case '6':
+      window.open("https://smokashi.itch.io/wooshy", "_blank");
+      break;
+    case '7':
+      window.open("https://smokashi.itch.io/rip", "_blank");
+      break;
+    case '8':
+      window.open("https://github.com/Abdullah-Younas", "_blank");
+      break;
+    case '0':
+      window.open("https://smokashi.itch.io/", "_blank");
+      break;
+    // Add more keys if needed
+    default:
+      break;
+  }
 });
