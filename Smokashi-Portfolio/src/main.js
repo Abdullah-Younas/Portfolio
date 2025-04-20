@@ -140,9 +140,6 @@ window.addEventListener('keydown', (event) => {
     case '6':
       window.open("https://smokashi.itch.io/wooshy", "_blank");
       break;
-    case '7':
-      window.open("https://smokashi.itch.io/rip", "_blank");
-      break;
     case '8':
       window.open("https://github.com/Abdullah-Younas", "_blank");
       break;
